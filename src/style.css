@@ -1,0 +1,27 @@
+.red {
+  background: red;
+  color: white;
+  width: 30%;
+  margin: 0 auto;
+  padding: 10px 0 5px 0;
+  border-radius: 8px 8px 0 0;
+}
+
+.white {
+  padding: 20px 0 10px 0;
+  width: 30%;
+  margin: 0 auto;
+  border-radius: 0 0 8px 8px;
+  border-bottom: 20px solid red;
+}
+
+nav ul a {
+  color: black;
+  text-decoration: none;
+}
+
+nav ul {
+  width: 30%;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
