@@ -4,50 +4,40 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VSenapathi</title>
     <meta
       name="description"
-      content="Personal portfolio of Vathsalya Senapathi, front-end web developer."
+      content="Personal Portfolio of Vathsalya Senapathi, Front-End Web Developer."
     />
-
+    <title>VSenapathi</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <nav class="navbar container-fluid d-flex flex-column pt-2">
-      <a href="#hero"
-        ><img src="/src/images/vsenapathi-logo.svg" alt="logo" width="100px"
-      /></a>
-      <ul class="container-fluid mt-2 pt-1 pb-1 d-flex justify-content-evenly">
-        <a href="#about">About</a>
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
-      </ul>
-    </nav>
-    <div class="container-fluid mt-2 pt-5 pb-5 text-center" id="hero">
-      <div class="red">
-        <h2>Hello</h2>
-        <p>my name is</p>
-      </div>
-      <div class="white">
-        <h1>VATHSALYA</h1>
-        <h3>front-end dev</h3>
-      </div>
+  
+      <nav class="d-flex justify-content-between mt-3 container-fluid">
+        <a href="#hero" class="brand">
+          <img
+            src="/src/images/vsenapathi-logo.svg"
+            alt="logo"
+            class="logo img-fluid"
+            width="70px"
+          />
+        </a>
+        <ul class="nav-links">
+          <a href="#about">About</a>
+          <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
+        </ul>
+        </nav>
+  <div class="container text-center" id="hero"><h1 class="display-1">Hero</h1></div>
+  <div class="container" id="about">About</div>
+<div class="container" id="work">Work</div>
+<div class="container" id="contact">Contact</div>
     </div>
-    <div class="container-fluid mt-5" id="about">About</div>
-
-    <div class="container-fluid mt-5" id="work">Work</div>
-    <div class="container-fluid mt-5" id="contact">Contact</div>
-    <footer class="small text-center">Coded by Vathsalya Senapathi</footer>
   </body>
 </html>
