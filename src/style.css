@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "Poppins", sans-serif;
+  src: url(/src/fonts/Poppins-Regular.ttf) format("truetype");
+
+  font-family: "Gela", serif;
+  src: url(/src/fonts/GelaTrial-72pt.otf) format("opentype");
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+.holdpage {
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 10%;
+}
+.holdpage h1 {
+  font-size: 72px;
+}
+.holdpage p {
+  margin-bottom: 0 !important;
+}
