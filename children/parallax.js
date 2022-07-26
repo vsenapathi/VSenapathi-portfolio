@@ -92,6 +92,8 @@ function drawCanvas() {
 
   //loop through each layer and draw it to the canvas
   layerList.forEach(function (layer, index) {
+    layer.position = getOffset(layer);
+
     if (layer.blend) {
       context.globalCompositeOperation = layer.blend;
     } else {
@@ -106,4 +108,93 @@ function drawCanvas() {
   requestAnimationFrame(drawCanvas);
 }
 
+function getOffset(layer) {
+  var touch_multiplier = 0.1;
+  var touch_offset_x = pointer.x * layer.z_index * touch_multiplier;
+  var touch_offset_y = pointer.y * layer.z_index * touch_multiplier;
+
+  var offset = {
+    x: touch_offset_x,
+    y: touch_offset_y,
+  };
+
+  return offset;
+}
+
 //TOUCH AND MOUSE CONTROLS
+var moving = false;
+
+//initialize touch and mouse position
+pointerInitial = {
+  x: 0,
+  y: 0,
+};
+
+var pointer = {
+  x: 0,
+  y: 0,
+};
+
+canvas.addEventListener("touchstart", pointerStart);
+canvas.addEventListener("mousedown", pointerStart);
+
+function pointerStart(event) {
+  moving = true;
+  if (event.type === "touchstart") {
+    pointerInitial.x = event.touches[0].clientX;
+    pointerInitial.y = event.touches[0].clientY;
+  } else if (event.type === "mousedown") {
+    pointerInitial.x = event.clientX;
+    pointerInitial.y = event.clientY;
+  }
+}
+
+window.addEventListener("touchmove", pointerMove);
+window.addEventListener("mousemove", pointerMove);
+function pointerMove(event) {
+  event.preventDefault();
+  if (moving === true) {
+    var current_x = 0;
+    var current_y = 0;
+    if (event.type === "touchmove") {
+      current_x = event.touches[0].clientX;
+      current_y = event.touches[0].clientY;
+    } else if (event.type === "mousemove") {
+      current_x = event.clientX;
+      current_y = event.clientY;
+    }
+    pointer.x = current_x - pointerInitial.x;
+    pointer.y = current_y - pointerInitial.y;
+  }
+}
+
+canvas.addEventListener("touchmove", function (event) {
+  event.preventDefault();
+});
+
+canvas.addEventListener("mousemove", function (event) {
+  event.preventDefault();
+});
+
+window.addEventListener("touchend", function (event) {
+  endGesture();
+});
+
+window.addEventListener("mouseup", function (event) {
+  endGesture();
+});
+
+function endGesture() {
+  moving = false;
+
+  pointer.x = 0;
+  pointer.y = 0;
+}
+
+//MOTION CONTROLS
+//initialize variables for motion based parallax;
+
+var motionInitial = {
+  x: null,
+  y: null,
+};
