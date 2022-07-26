@@ -23,5 +23,29 @@ body {
   max-height: 100%;
   display: block;
   margin: auto;
-  background: red;
+  background: navy;
+}
+
+.loading-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  visibility: visible;
+  opacity: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease-in-out;
+  transform: translateZ(50px);
+}
+
+.loading-screen.hidden {
+  visibility: hidden;
+  opacity: 0;
 }

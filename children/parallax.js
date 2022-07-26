@@ -4,7 +4,11 @@ var canvas = document.getElementById("canvas");
 //get reference to Canvas context
 var context = canvas.getContext("2d");
 
+//get reference to loading screen
+var loadingScreen = document.getElementById("loading");
+
 //initialize loading variables
+var loaded = false;
 var loadCounter = 0;
 
 //initialize images for layers
@@ -80,16 +84,28 @@ layerList.forEach(function (layer, index) {
   layer.image.onload = function () {
     loadCounter += 1;
     if (loadCounter >= layerList.length) {
+      hideLoading();
       requestAnimationFrame(drawCanvas);
     }
   };
   layer.image.src = layer.src;
 });
 
+function hideLoading() {
+  loadingScreen.classList.add("hidden");
+}
+
 function drawCanvas() {
   //clear whatever is in canvas
   context.clearRect(0, 0, canvas.width, canvas.height);
 
+  //calculate how much canvas should rotate
+  var rotate_x = pointer.y * -0.15 + motion.y * -1.2;
+  var rotate_y = pointer.x * 0.15 + motion.x * 1.2;
+
+  var transformString =
+    "rotateX(" + rotate_x + "deg) rotateY(" + rotate_y + "deg)";
+  canvas.style.transform = transformString;
   //loop through each layer and draw it to the canvas
   layerList.forEach(function (layer, index) {
     layer.position = getOffset(layer);
@@ -113,9 +129,13 @@ function getOffset(layer) {
   var touch_offset_x = pointer.x * layer.z_index * touch_multiplier;
   var touch_offset_y = pointer.y * layer.z_index * touch_multiplier;
 
+  var motion_multiplier = 2;
+  var motionOffset_x = motion.x * layer.z_index * motion_multiplier;
+  var motionOffset_y = motion.y * layer.z_index * motion_multiplier;
+
   var offset = {
-    x: touch_offset_x,
-    y: touch_offset_y,
+    x: touch_offset_x + motionOffset_x,
+    y: touch_offset_y + motionOffset_y,
   };
 
   return offset;
@@ -198,3 +218,37 @@ var motionInitial = {
   x: null,
   y: null,
 };
+
+var motion = {
+  x: 0,
+  y: 0,
+};
+
+//listen to gyroscope events
+window.addEventListener("deviceorientation", function (event) {
+  //if this is first time through
+  if (!motionInitial.x && !motionInitial.y) {
+    motionInitial.x = event.beta;
+    motionInitial.y = event.gamma;
+  }
+
+  //Orientations to handle: portrait, left landscape, right landscape, upside down
+  else if (window.orientation === 0) {
+    motion.x = event.gamma - motionInitial.y;
+    motion.y = event.beta - motionInitial.x;
+  } else if (window.orientation === 90) {
+    motion.x = event.beta - motionInitial.x;
+    motion.y = event.gamma - motionInitial.y;
+  } else if (window.orientation === -90) {
+    motion.x = -event.beta + motionInitial.x;
+    motion.y = -event.gamma + motionInitial.y;
+  } else {
+    motion.x = -event.gamma + motionInitial.y;
+    motion.y = -event.beta + motionInitial.x;
+  }
+});
+
+window.addEventListener("orientationchange", function (event) {
+  motionInitial.x = 0;
+  motionInitial.y = 0;
+});
