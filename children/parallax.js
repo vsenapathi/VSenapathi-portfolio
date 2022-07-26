@@ -71,7 +71,7 @@ var layerList = [
     src: "/src/parallaxfolder/Parallax-7.png",
     z_index: 2,
     position: { x: 0, y: 0 },
-    blend: null,
+    blend: "add",
     opacity: 0.9,
   },
 ];
@@ -92,8 +92,18 @@ function drawCanvas() {
 
   //loop through each layer and draw it to the canvas
   layerList.forEach(function (layer, index) {
+    if (layer.blend) {
+      context.globalCompositeOperation = layer.blend;
+    } else {
+      context.globalCompositeOperation = "normal";
+    }
+
+    context.globalAlpha = layer.opacity;
+
     context.drawImage(layer.image, layer.position.x, layer.position.y);
   });
 
   requestAnimationFrame(drawCanvas);
 }
+
+//TOUCH AND MOUSE CONTROLS
